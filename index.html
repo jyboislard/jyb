@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("btnSoumettre").addEventListener("click", function() {
 
     const payload = {
-      juge: document.getElementById("Code_Juge").value,
-      photo: document.getElementById("Code_Photo").value,
-      note1: document.getElementById("Note_1").value,
-      note2: document.getElementById("Note_2").value
+      Code_Juge: document.getElementById("juge").value,
+      Code_Photo: document.getElementById("photo").value,
+      Note_1: document.getElementById("note1").value,
+      Note_2: document.getElementById("note2").value
     };
 
     fetch("https://script.google.com/macros/s/AKfycbzftSKUsHt08vqviSvRGDuWsWjIeseUs9RBD-Or3a6EWy4gy-vjcbKM8Ru09P0bGSb6/exec", {
