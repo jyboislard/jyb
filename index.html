@@ -1,6 +1,6 @@
 <h2>Jugement – Prototype</h2>
 
-<h3>Créé par Jean-Yves Boislard le 2026-03-02 à 14 h 07</h3>
+<h3>Créé par Jean-Yves Boislard le 2026-03-02 à 14 h 09</h3>
 
 <label>Numéro du juge</label>
 <input type="number" id="juge" required>
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
       Note_2: document.getElementById("note2").value
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbzCd2qIGoYxWpQjqwsQ7gCbj9wiW2dLb6zCxBVpv_EfFERlbOlV9P4dTDwyCKEjO2Ph/exec", {
+    fetch("fetch("https://script.google.com/macros/s/AKfycbzCd2qIGoYxWpQjqwsQ7gCbj9wiW2dLb6zCxBVpv_EfFERlbOlV9P4dTDwyCKEjO2Ph/exec", {", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
