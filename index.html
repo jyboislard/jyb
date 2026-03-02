@@ -1,6 +1,21 @@
-<h2>Jugement – Prototype</h2>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Jugement – Prototype</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    label { display: block; margin-top: 15px; }
+    input, select { padding: 5px; margin-top: 5px; width: 200px; }
+    button { margin-top: 20px; padding: 10px 20px; }
+    #msg { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
 
-<h3>Créé par Jean-Yves Boislard le 2026-03-02 à 14 h 55</h3>
+<body>
+
+<h2>Jugement – Prototype</h2>
+<h3>Créé par Jean-Yves Boislard 2026-03-02 à 15 h 06</h3>
 
 <label>Numéro du juge</label>
 <input type="number" id="juge" required>
@@ -20,11 +35,10 @@
 
 <button id="btnSoumettre">Soumettre</button>
 
-<p id="msg" style="margin-top:20px; font-weight:bold;"></p>
+<p id="msg"></p>
 
 <script>
-  console.log("Script chargé !");
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
 
   document.getElementById("btnSoumettre").addEventListener("click", function() {
 
@@ -35,18 +49,24 @@
       Note_2: document.getElementById("note2").value
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbwAzqG8gMWxMV6lVEmH2q7dmp_N0hxs3dB_MrFIl-X7e-c6yFAtlz--OWrSMXselETi/exec", {
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz-_AIR97SpaUaN2W8savu8SS_kRbINf15Z8RE76gYf6UnbPIoV2r4xH3C_vIbDXmFP/exec";
+
+    const proxyURL = "https://corsproxy.io/?" + encodeURIComponent(scriptURL);
+
+    fetch(proxyURL, {
       method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     })
-    .then(r => r.text())
-    .then(() => {
+    .then(r => r.json())
+    .then(data => {
+      console.log("Réponse du serveur :", data);
       document.getElementById("msg").innerText = "Enregistré !";
       document.getElementById("note1").value = "";
       document.getElementById("note2").value = "";
     })
     .catch(err => {
+      console.error("Erreur fetch :", err);
       document.getElementById("msg").innerText = "Erreur : " + err;
     });
 
@@ -54,3 +74,6 @@
 
 });
 </script>
+
+</body>
+</html>
