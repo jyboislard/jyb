@@ -1,49 +1,33 @@
-<h2>Jugement – Prototype</h2>
+<form id="voteForm">
+  <label>Code du juge</label>
+  <input type="text" name="code_juge" required>
 
-<label>Numéro du juge</label>
-<input type="number" id="juge">
+  <label>Code de la photo</label>
+  <input type="text" name="code_photo" required>
 
-<label>Choisir une photo</label>
-<select id="photo">
- <option value="P01">Photo 1</option>
- <option value="P02">Photo 2</option>
- <option value="P03">Photo 3</option>
-</select>
+  <label>Note 1</label>
+  <input type="number" name="note_1" min="1" max="10" required>
 
-<label>Note 1</label>
-<input type="number" id="note1" min="1" max="10">
+  <label>Note 2</label>
+  <input type="number" name="note_2" min="1" max="10" required>
 
-<label>Note 2</label>
-<input type="number" id="note2" min="1" max="10">
+  <button type="submit">Envoyer</button>
+</form>
 
-<button id="btnSoumettre">Soumettre</button>
+<script>
+document.getElementById("voteForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-<p id="msg" style="margin-top:20px; font-weight:bold;"></p>
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData.entries());
 
-
-document.addEventListener("DOMContentLoaded", function() {
-
- document.getElementById("btnSoumettre").addEventListener("click", function() {
-
- const payload = {
- juge: document.getElementById("juge").value,
- photo: document.getElementById("photo").value,
- note1: document.getElementById("note1").value,
- note2: document.getElementById("note2").value
- };
-
- fetch("https://script.google.com/macros/s/AKfycbxTxlyCXFwXSGvzf-QF12e2NO4T-Y1RE3pe4F4VDJG6PJ4GYjdS-BH7kM4i04f7gufM/exec", {
- method: "POST",
- body: JSON.stringify(payload),
- headers: { "Content-Type": "application/json" }
- })
- .then(r => r.text())
- .then(() => {
- document.getElementById("msg").innerText = "Enregistré !";
- document.getElementById("note1").value = "";
- document.getElementById("note2").value = "";
- });
-
- });
-
+  fetch("https://script.google.com/macros/s/AKfycbykKeTdHKsVgKQhETFkijbOOH4o6oy28k3Hd0YIpp2mrTn6zJJoxT6wyDCo08QRknNY/exec", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(r => r.json())
+  .then(r => alert("Merci! Votre évaluation a été enregistrée."))
+  .catch(err => alert("Erreur : " + err));
 });
+</script>
