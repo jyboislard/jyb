@@ -1,0 +1,49 @@
+<h2>Jugement – Prototype</h2>
+
+<label>Numéro du juge</label>
+<input type="number" id="juge">
+
+<label>Choisir une photo</label>
+<select id="photo">
+ <option value="P01">Photo 1</option>
+ <option value="P02">Photo 2</option>
+ <option value="P03">Photo 3</option>
+</select>
+
+<label>Note 1</label>
+<input type="number" id="note1" min="1" max="10">
+
+<label>Note 2</label>
+<input type="number" id="note2" min="1" max="10">
+
+<button id="btnSoumettre">Soumettre</button>
+
+<p id="msg" style="margin-top:20px; font-weight:bold;"></p>
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+ document.getElementById("btnSoumettre").addEventListener("click", function() {
+
+ const payload = {
+ juge: document.getElementById("juge").value,
+ photo: document.getElementById("photo").value,
+ note1: document.getElementById("note1").value,
+ note2: document.getElementById("note2").value
+ };
+
+ fetch("https://script.google.com/macros/s/AKfycbxTxlyCXFwXSGvzf-QF12e2NO4T-Y1RE3pe4F4VDJG6PJ4GYjdS-BH7kM4i04f7gufM/exec", {
+ method: "POST",
+ body: JSON.stringify(payload),
+ headers: { "Content-Type": "application/json" }
+ })
+ .then(r => r.text())
+ .then(() => {
+ document.getElementById("msg").innerText = "Enregistré !";
+ document.getElementById("note1").value = "";
+ document.getElementById("note2").value = "";
+ });
+
+ });
+
+});
