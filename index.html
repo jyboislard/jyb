@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
       Note_2: document.getElementById("note2").value
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbzCd2qIGoYxWpQjqwsQ7gCbj9wiW2dLb6zCxBVpv_EfFERlbOlV9P4dTDwyCKEjO2Ph/exec ", {
+    fetch("https://script.google.com/macros/s/AKfycbzCd2qIGoYxWpQjqwsQ7gCbj9wiW2dLb6zCxBVpv_EfFERlbOlV9P4dTDwyCKEjO2Ph/exec", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" }
