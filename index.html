@@ -15,64 +15,37 @@
 <body>
 
 <h2>Jugement – Prototype</h2>
-<h3>Créé par Jean-Yves Boislard 2026-03-02 à 15 h 10</h3>
+<h3>Créé par Jean-Yves Boislard 2025-03-01 15 h 13</h3>
 
-<label>Numéro du juge</label>
-<input type="number" id="juge" required>
+<form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbz-_AIR97SpaUaN2W8savu8SS_kRbINf15Z8RE76gYf6UnbPIoV2r4xH3C_vIbDXmFP/exec" target="hidden_iframe">
 
-<label>Choisir une photo</label>
-<select id="photo">
-  <option value="P01">Photo 1</option>
-  <option value="P02">Photo 2</option>
-  <option value="P03">Photo 3</option>
-</select>
+  <label>Numéro du juge</label>
+  <input type="number" name="Code_Juge" required>
 
-<label>Note 1</label>
-<input type="number" id="note1" min="1" max="10" required>
+  <label>Choisir une photo</label>
+  <select name="Code_Photo">
+    <option value="P01">Photo 1</option>
+    <option value="P02">Photo 2</option>
+    <option value="P03">Photo 3</option>
+  </select>
 
-<label>Note 2</label>
-<input type="number" id="note2" min="1" max="10" required>
+  <label>Note 1</label>
+  <input type="number" name="Note_1" min="1" max="10" required>
 
-<button id="btnSoumettre">Soumettre</button>
+  <label>Note 2</label>
+  <input type="number" name="Note_2" min="1" max="10" required>
+
+  <button type="submit">Soumettre</button>
+
+</form>
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <p id="msg"></p>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-
-  document.getElementById("btnSoumettre").addEventListener("click", function() {
-
-    const payload = {
-      Code_Juge: document.getElementById("juge").value,
-      Code_Photo: document.getElementById("photo").value,
-      Note_1: document.getElementById("note1").value,
-      Note_2: document.getElementById("note2").value
-    };
-
-    const scriptURL = "https://script.google.com/macros/s/AKfycbz-_AIR97SpaUaN2W8savu8SS_kRbINf15Z8RE76gYf6UnbPIoV2r4xH3C_vIbDXmFP/exec";
-
-    // Proxy AllOrigins (fiable et compatible Apps Script)
-    const proxyURL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(scriptURL);
-
-    fetch(proxyURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    })
-    .then(r => r.text())   // AllOrigins renvoie du texte brut
-    .then(txt => {
-      console.log("Réponse brute :", txt);
-      document.getElementById("msg").innerText = "Enregistré !";
-      document.getElementById("note1").value = "";
-      document.getElementById("note2").value = "";
-    })
-    .catch(err => {
-      console.error("Erreur fetch :", err);
-      document.getElementById("msg").innerText = "Erreur : " + err;
-    });
-
-  });
-
+document.getElementById("form").addEventListener("submit", function() {
+  document.getElementById("msg").innerText = "Enregistré !";
 });
 </script>
 
