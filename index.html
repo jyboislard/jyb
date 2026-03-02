@@ -15,7 +15,7 @@
 <body>
 
 <h2>Jugement – Prototype</h2>
-<h3>Créé par Jean-Yves Boislard 2026-03-02 à 15 h 06</h3>
+<h3>Créé par Jean-Yves Boislard 2026-03-02 à 15 h 10</h3>
 
 <label>Numéro du juge</label>
 <input type="number" id="juge" required>
@@ -51,16 +51,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbz-_AIR97SpaUaN2W8savu8SS_kRbINf15Z8RE76gYf6UnbPIoV2r4xH3C_vIbDXmFP/exec";
 
-    const proxyURL = "https://corsproxy.io/?" + encodeURIComponent(scriptURL);
+    // Proxy AllOrigins (fiable et compatible Apps Script)
+    const proxyURL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(scriptURL);
 
     fetch(proxyURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     })
-    .then(r => r.json())
-    .then(data => {
-      console.log("Réponse du serveur :", data);
+    .then(r => r.text())   // AllOrigins renvoie du texte brut
+    .then(txt => {
+      console.log("Réponse brute :", txt);
       document.getElementById("msg").innerText = "Enregistré !";
       document.getElementById("note1").value = "";
       document.getElementById("note2").value = "";
